@@ -165,7 +165,7 @@ def channel_names():
 
 # Home page
 with tab1:
-    
+
     st.markdown("## :blue[Domain] : Social Media")
     st.markdown("## :blue[Technologies used] : Python,MongoDB, Youtube Data API, MySql, Streamlit")
     st.markdown("## :blue[Overview] : Retrieving the Youtube channels data from the Google API, storing it in a MongoDB as data lake, migrating and transforming data into a SQL database,then querying the data and displaying it in the Streamlit app.")
@@ -297,12 +297,7 @@ with tab3:
         st.write(df)
         
     elif questions == '4. How many comments were made on each video, and what are their corresponding video names?':
-        mycursor.execute("""SELECT a.Video_id,Title,b.Total_Comments
-                            FROM videos AS a
-                            LEFT JOIN (SELECT Video_id,COUNT(Comment_id) AS Total_Comments
-                            FROM comments GROUP BY Video_id) AS b
-                            ON a.Video_id = b.Video_id
-                            ORDER BY b.Total_Comments DESC""")
+        mycursor.execute("""SELECT Video_id,Title,Total_Comments FROM videos ORDER BY Total_Comments DESC""")
         df = pd.DataFrame(mycursor.fetchall(),columns=mycursor.column_names)
         st.write(df)
         
